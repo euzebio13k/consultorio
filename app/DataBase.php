@@ -19,11 +19,26 @@ class DataBase{
         ('mysql:host='.self::HOST.';dbname='.self::DBNAME,self::USER,self::PASSWORD);
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
+    public function execute($query, $values = null){
+        try{
+            echo "<pre>";
+            print_r($query);
+            echo "</pre>";
+            $statement = $this->connection->prepare($query);
+            $statement->execute($values);
+            return $statement;
+        }catch(PDOException $e){
+            die('ERROR: '.$e->getMessage());
+        }
+    }
     public function insert($array){
-        $query = "insert into paciente(nome,cpf,telefone)values(?,?,?)";
-        echo "<pre>";
-        print_r($array);
-        echo "</pre>";
+        $fields = array_keys($array);
+        $binds = array_pad([],count($array),'?');
+        $query = 'insert into '.$this->table.'('.implode(', ',$fields).')
+         values('.implode(', ',$binds).')';
+        $this->execute($query, array_values($array));
+        return $this->connection->lastInsertId();
+        
     }
 
 }
