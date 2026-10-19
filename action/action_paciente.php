@@ -15,7 +15,7 @@ switch($action){
         $paciente->observacao = $_POST['observacao'];
         $paciente->cadastrar();
         
-        //header('location: /consultorio/view/paciente/listar.php');
+        header('location: /consultorio/view/paciente/listar.php');
     break;
     case 'alterar':
         

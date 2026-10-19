@@ -40,5 +40,9 @@ class DataBase{
         return $this->connection->lastInsertId();
         
     }
+    public function select(){
+        $query = 'select * from '.$this->table;
+        return $this->execute($query);
+    }
 
 }
