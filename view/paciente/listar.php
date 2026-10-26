@@ -6,9 +6,12 @@ include('../includes/rodape.php');
 $pacientes = Paciente::listar();
 ?>
 <main class="container">
-    <h1>Lista de Pacientes</h1>
-    <table border="1">
-        <thead>
+    <h1 class="text-center">Lista de Pacientes</h1>
+    <div class="text-end my-2">
+        <button class="btn btn-success">Novo Paciente</button>
+    </div>
+    <table class="table table-hover">
+        <thead class="table-primary">
             <tr>
                 <th>Nome</th>
                 <th>CPF</th>
@@ -18,7 +21,7 @@ $pacientes = Paciente::listar();
                 <th>Endereco</th>
                 <th>Convênio</th>
                 <th>Observação</th>
-                <th>Ações</th>
+                <th colspan="2">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +30,16 @@ $pacientes = Paciente::listar();
         echo "<tr>
         <td>".$paciente->nome."</td>
         <td>".$paciente->cpf."</td>
-        <td>".$paciente->data_nascimento."</td>
+        <td>".date("d/m/Y",strtotime($paciente->data_nascimento))."</td>
         <td>".$paciente->telefone."</td>
         <td>".$paciente->email."</td>
         <td>".$paciente->endereco."</td>
         <td>".$paciente->convenio."</td>
         <td>".$paciente->observacao."</td>
-        <td>
-        <a href='editar.php?id=".$paciente->id."'>
-        <a href='/consultorio/action/action_paciente.php?
-        action=excluir&id=".$paciente->id."'>
-        </td>
+        <td><a href='editar.php?id=".$paciente->id."'>
+            <button class='btn btn-primary'>Editar</button></a></td>
+        <td><a href='/consultorio/action/action_paciente.php?action=excluir&id=".$paciente->id."'>
+            <button class='btn btn-danger'>Excluir</button></a></td>
         </tr>";
     }
 ?>

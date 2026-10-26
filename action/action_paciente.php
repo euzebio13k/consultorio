@@ -21,7 +21,9 @@ switch($action){
         
     break;
     case 'excluir':
-
+        $paciente->id = $_GET['id'];
+        $paciente->excluir();
+        header('location: /consultorio/view/paciente/listar.php');
     break;
 }
 ?>
