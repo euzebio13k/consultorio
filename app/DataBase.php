@@ -49,8 +49,7 @@ class DataBase{
     }
     public function update($where, $array){
         $fields = array_keys($array);
-        $binds = array_pad([],count($array),' = ?,');
-        $query = 'update '.$this->table.' set '.implode($binds,$fields).'=? where '.$where;
+        $query = 'update '.$this->table.' set '.implode('= ?, ',$fields).'=? where '.$where;
         return $this->execute($query,array_values($array));
     }
     public function delete($where){
